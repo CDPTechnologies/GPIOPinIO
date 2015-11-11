@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Model Name="FileIOServer" Version="2.0">
+
+  <ModelTypeClass>C++</ModelTypeClass>
+  <BaseModel>CDPComponent</BaseModel>
+  <Priority>normal</Priority>
+  <fs>100</fs> 
+  <Description>Implementation of IOServer to read/write files via signals</Description>
+
+</Model>
+

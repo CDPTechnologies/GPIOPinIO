@@ -1,0 +1,10 @@
+#include(combat.qdocconf)
+include($$CDPBASE/QDoc/cdp-common.qdocconf)
+
+#Rename this file to {TARGET}.qdocconf
+
+description = FileIOServerLib Documentation
+
+qhp.FileIOServerLib.namespace = FileIOServerLib.$$REPO_VERSION
+qhp.FileIOServerLib.virtualFolder = doc
+qhp.FileIOServerLib.indexTitle = FileIOServerLib $$REPO_VERSION

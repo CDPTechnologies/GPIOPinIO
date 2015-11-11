@@ -1,0 +1,20 @@
+TARGET   = FileIOServerLib
+TEMPLATE = lib
+
+CONFIG += staticlib \
+          cdp
+
+INCLUDEPATH += .
+
+include($$(CDPBASE)/qmakefeatures/common.pri)
+
+HEADERS += FileIOServerLib.h FileIOServerLibBuilder.h \
+    FileIOServer.h
+SOURCES += FileIOServerLibBuilder.cpp \
+    FileIOServer.cpp
+
+OTHER_FILES += FileIOServerLib.xml fileioserverlib.prf models/*.xml
+
+DISTFILES += \
+    models/FileIOServer.xml
+

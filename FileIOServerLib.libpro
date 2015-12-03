@@ -9,9 +9,11 @@ INCLUDEPATH += .
 include($$(CDPBASE)/qmakefeatures/common.pri)
 
 HEADERS += FileIOServerLib.h FileIOServerLibBuilder.h \
-    FileIOServer.h
+    FileIOServer.h \
+    gpio.h
 SOURCES += FileIOServerLibBuilder.cpp \
-    FileIOServer.cpp
+    FileIOServer.cpp \
+    gpio.cpp
 
 OTHER_FILES += FileIOServerLib.xml fileioserverlib.prf models/*.xml
 

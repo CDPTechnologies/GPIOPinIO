@@ -1,5 +1,6 @@
 <Library Name="FileIOServerLib">
  <Models>
+  <Model Name="FileIO.GPIO"/>
   <Model Name="FileIOServer"/>
  </Models>
 </Library>

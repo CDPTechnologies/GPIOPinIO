@@ -68,7 +68,6 @@ bool read_bool(const std::string& file)
     std::string value;
     ofs >> value;
     ofs.close();
-
     return value=="1";
 }
 
@@ -85,7 +84,8 @@ GPIO::GPIO(short nr, bool inputGPIO)
  , m_inputGPIO(inputGPIO)
 {
     m_valuePath = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_VALUE;
-    SetDataPointer(&m_valueGPIO);
+    if (m_inputGPIO)
+        SetDataPointer(&m_valueGPIO);
     RegisterValidator(new ServerIO::DeltaValidatorSendTrigger(this));
 }
 
@@ -95,13 +95,14 @@ GPIO::~GPIO()
 
 bool GPIO::Initialize()
 {
-    bool ok = write_value(SYSFS_GPIO_EXPORT, m_nr);
+    bool ok;
+    write_value(SYSFS_GPIO_EXPORT, m_nr);
+    std::cout << "SysFS configure write "<<SYSFS_GPIO_EXPORT<<" "<<m_nr<<std::endl;
     std::string direction = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_DIRECTION;
-    for (int i = 0; i<10 && !writable(direction); ++i)
-        OSAPISleep(10);
-
-    OSAPISleep(100);
-    ok = write_value(direction, m_inputGPIO?GPIO_IN:GPIO_OUT) && ok;
+    std::cout << "SysFS configure write "<<direction<<" "<< (m_inputGPIO?GPIO_IN:GPIO_OUT) << std::endl;
+    OSAPISleep(200);
+    ok = write_value(direction, m_inputGPIO?GPIO_IN:GPIO_OUT);
+    OSAPISleep(50);
     return ok;
 }
 
@@ -115,7 +116,11 @@ void GPIO::Update()
     if (m_inputGPIO)
         m_valueGPIO = read_bool(m_valuePath);
     else if (m_doWrite.exchange(false))
+    {
+        double ts;
+        m_valueGPIO = this->GetInternal(ts);
         write_bool(m_valuePath, m_valueGPIO);
+    }
 }
 
 std::string GPIO::GetNodeTypeName() const

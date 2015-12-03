@@ -86,7 +86,7 @@ void FileIOServer::Main()
         for (auto gpio : m_gpios)
             gpio->Update();
         m_channelManager->SynchronizeValuesOut();
-        OSAPISleep(5);
+        OSAPISleep(10);
     }
 }
 

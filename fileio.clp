@@ -3,13 +3,14 @@ PROJECTNAME = fileio
 include($$(CDPBASE)/qmakefeatures/cdplibrary.pri)
 
 HEADERS += fileio.h \
-           fileiobuilder.h \
            FileIOServer.h \
-           gpio.h
+           gpio.h \
+           fileioBuilder.h
 
-SOURCES += fileiobuilder.cpp \
+SOURCES += \
            fileioserver.cpp \
-           gpio.cpp
+           gpio.cpp \
+            fileioBuilder.cpp
 
 OTHER_FILES += \
         fileio.xml \

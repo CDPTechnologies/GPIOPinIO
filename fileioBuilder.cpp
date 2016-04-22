@@ -2,7 +2,7 @@
 FileIOServerLibBuilder implementation.
 */
 #include "fileioserver.h"
-#include "fileiobuilder.h"
+#include "fileioBuilder.h"
 
 FileIOServerLibBuilder::FileIOServerLibBuilder(const char* libName, const char* timeStamp)
 : CDPBuilder(libName, timeStamp)

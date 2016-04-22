@@ -2,10 +2,10 @@
 
 <Model Name="FileIO.GPIO" Version="2.0" Unique="Name">
   <ModelTypeClass>C++</ModelTypeClass>
-  <BaseModel>CDPSignalChannel</BaseModel>
+  <BaseModel>CDPSignalChannel&lt;bool&gt;</BaseModel>
 
   <Attributes>
-    <Attribute Name="Using" Type="string" Required="1" Value="FileIO.GPIO" ReadOnly="1"></Attribute>
+    <Attribute Name="Model" Type="string" Required="1" Value="FileIO.GPIO" ReadOnly="1"></Attribute>
     <Attribute Name="Name" Type="string" Description="GPIO name." Required="1"></Attribute>
     <Attribute Name="Nr" Type="short"   Description="GPIO Pin number." Value="1" Required="1"></Attribute>
     <Attribute Name="InternalValue" Type="bool"   Description="Internal value of CDPChannel" ReadOnly="1"></Attribute>

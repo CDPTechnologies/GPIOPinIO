@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ProjectConfiguration>
+<!-- Written by CDPStudio 1.0.0, 2016-04-22T16:21:12. -->
+<qtcreator>
+ <data>
+  <variable>CdpVersion</variable>
+  <value type="QString">4.0.0</value>
+ </data>
+</qtcreator>

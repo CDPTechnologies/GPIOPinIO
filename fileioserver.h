@@ -19,10 +19,9 @@ public:
 
     void Create(const char* fullName) override;
     void CreateModel() override;
-    void Configure(const char* xml, const char* end = 0) override;
+    void Configure(const char* componentXML) override;
     std::string GetNodeTypeName() const override;
     void FillNodeChildren(CDP::StudioAPI::NodeStream &serializer) const override;
-    int CalculateRegisterNumber(int moduleNo, int channelGroupNo, int channelNo, bool bDigitalChannel) override;
     bool IsCommProblem() override;
     void Activate() override;
     void Suspend() override;

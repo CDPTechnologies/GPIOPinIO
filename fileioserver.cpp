@@ -1,4 +1,4 @@
-#include "FileIOServer.h"
+#include "fileioserver.h"
 
 #include <StudioAPI/NodeStream.h>
 
@@ -27,11 +27,9 @@ void FileIOServer::CreateModel()
     CDPComponent::CreateModel();
 }
 
-void FileIOServer::Configure(const char* xml, const char* end)
+void FileIOServer::Configure(const char* componentXML)
 {
-    CDPXMLConfiguration xmlComponent;
-    GetComponentXML(xmlComponent, xml, end);
-    CDPComponent::Configure(xmlComponent.StartPosition(), xmlComponent.StopPosition());
+    CDPComponent::Configure(componentXML);
 }
 
 std::string FileIOServer::GetNodeTypeName() const
@@ -44,11 +42,6 @@ void FileIOServer::FillNodeChildren(CDP::StudioAPI::NodeStream &serializer) cons
     IOServer::FillNodeChildren(serializer);
     auto list = m_channelManager->GetChannelList();
     serializer.StdContainerStreamer(list);
-}
-
-int FileIOServer::CalculateRegisterNumber(int moduleNo, int channelGroupNo, int channelNo, bool bDigitalChannel)
-{
-    return 0;
 }
 
 bool FileIOServer::IsCommProblem()

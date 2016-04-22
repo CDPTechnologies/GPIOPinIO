@@ -1,8 +1,8 @@
 /**
 FileIOServerLibBuilder implementation.
 */
-#include "FileIOServer.h"
-#include "FileIOServerLibBuilder.h"
+#include "fileioserver.h"
+#include "fileiobuilder.h"
 
 FileIOServerLibBuilder::FileIOServerLibBuilder(const char* libName, const char* timeStamp)
 : CDPBuilder(libName, timeStamp)
@@ -17,7 +17,7 @@ CDPComponent* FileIOServerLibBuilder::CreateNewComponent(const std::string& type
     return nullptr;
 }
 
-CDPBaseObject* FileIOServerLibBuilder::CreateNewCDPOperator(const std::string& modelName, const std::string& type, const CDPPropertyBase* inputProperty)
+CDPBaseObject* FileIOServerLibBuilder::CreateNewCDPOperator(const std::string&, const std::string&, const CDPPropertyBase*)
 {
   return nullptr;
 }

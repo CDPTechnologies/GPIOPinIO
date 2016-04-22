@@ -1,4 +1,4 @@
-<Library Name="FileIOServerLib">
+<Library Name="fileio">
  <Models>
   <Model Name="FileIO.GPIO"/>
   <Model Name="FileIOServer"/>

@@ -1,6 +1,8 @@
 LIBNAME = fileio
 !build_pass: message($$TARGET: Including $$LIBNAME features.)
 BASEDIR = $$clean_path($$PWD/..)
-INCLUDEPATH *= $$quote($$BASEDIR/include)
-DEPENDPATH *= $$INCLUDEPATH
+INCLUDEPATH *= $$quote($$BASEDIR/include/$$LIBNAME)
 LIBS *= -L$$BASEDIR/lib -l$$LIBNAME$$EXT
+
+DEPSFILE = $$PWD/$$lower($$LIBNAME)_dependencies.pri
+exists($$DEPSFILE): include($$DEPSFILE)

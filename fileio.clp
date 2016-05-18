@@ -16,8 +16,8 @@ SOURCES += \
 OTHER_FILES += \
         fileio.xml \
         fileio.prf \
-        models/*.xml
+        Models/*.xml
 
 DISTFILES += \
-    models/FileIOServer.xml \
-    models/FileIO.GPIO.xml
+    Models/FileIOServer.xml \
+    Models/FileIO.GPIO.xml

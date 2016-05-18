@@ -1,4 +1,5 @@
 PROJECTNAME = fileio
+CDPVERSION = 4.0.0
 
 include($$(CDPBASE)/qmakefeatures/cdplibrary.pri)
 
@@ -10,7 +11,7 @@ HEADERS += fileio.h \
 SOURCES += \
            fileioserver.cpp \
            gpio.cpp \
-            fileioBuilder.cpp
+           fileioBuilder.cpp
 
 OTHER_FILES += \
         fileio.xml \

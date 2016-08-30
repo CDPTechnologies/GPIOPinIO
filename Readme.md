@@ -4,7 +4,7 @@ The FileIOServer implements file based IOServer for CDP Studio to be used on emb
 
 Direct dependencies
 ----
-This projet is intended to be built in CDP Studio IDE
+This projet is intended to be built with CDP 4.0 in Studio IDE 1.0
 
 Platforms
 ----
@@ -17,4 +17,3 @@ It is intended to be used by CDP Studio to create embedded robotix projects
 Maintainers
 ----
 Jüri Toomessoo
-

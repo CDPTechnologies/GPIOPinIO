@@ -73,7 +73,7 @@ void FileIOServer::Suspend()
 
 void FileIOServer::Main()
 {
-    while (!m_bStop)
+    while (!Stopped())
     {
         m_channelManager->SynchronizeValuesIn();
         for (auto gpio : m_gpios)

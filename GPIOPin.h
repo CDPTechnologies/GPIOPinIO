@@ -1,5 +1,5 @@
-#ifndef GPIO_H
-#define GPIO_H
+#ifndef GPIOPINIO_GPIOPIN_H
+#define GPIOPINIO_GPIOPIN_H
 
 #include <IO/ServerIO/ISendTrigger.h>
 #include <IO/ServerIO/CDPSignalChannel.h>
@@ -11,13 +11,13 @@ namespace ServerIO {
 class IChannel;
 }
 
-namespace FileIO {
+namespace GPIOPinIO {
 
-class GPIO: public ServerIO::CDPSignalChannel<bool>, public ServerIO::ISendTrigger
+class GPIOPin: public ServerIO::CDPSignalChannel<bool>, public ServerIO::ISendTrigger
 {
 public:
-    GPIO(short nr, bool inputGPIO);
-    ~GPIO();
+    GPIOPin(short nr, bool inputGPIO);
+    ~GPIOPin();
 
     bool Initialize();
     bool Deinitialize();    

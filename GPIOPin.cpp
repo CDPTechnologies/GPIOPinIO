@@ -1,4 +1,4 @@
-#include "gpio.h"
+#include "GPIOPin.h"
 
 #include <fstream>
 #include <string>
@@ -19,7 +19,7 @@ FILE* cfile_impl(buffer_t* const fb)
     return (static_cast<io_buffer_t* const>(fb))->file(); //type std::__c_file
 }
 
-using namespace FileIO;
+using namespace GPIOPinIO;
 using namespace CDP::StudioAPI;
 
 const std::string SYSFS_GPIO_EXPORT = "/sys/class/gpio/export";
@@ -78,7 +78,7 @@ void write_bool(const std::string& file, bool value)
 
 }
 
-GPIO::GPIO(short nr, bool inputGPIO)
+GPIOPin::GPIOPin(short nr, bool inputGPIO)
  : m_doWrite(false)
  , m_nr(nr)
  , m_inputGPIO(inputGPIO)
@@ -89,11 +89,11 @@ GPIO::GPIO(short nr, bool inputGPIO)
     RegisterValidator(new ServerIO::DeltaValidatorSendTrigger(this));
 }
 
-GPIO::~GPIO()
+GPIOPin::~GPIOPin()
 {
 }
 
-bool GPIO::Initialize()
+bool GPIOPin::Initialize()
 {
     bool ok;
     write_value(SYSFS_GPIO_EXPORT, m_nr);
@@ -106,12 +106,12 @@ bool GPIO::Initialize()
     return ok;
 }
 
-bool GPIO::Deinitialize()
+bool GPIOPin::Deinitialize()
 {
     return write_value(SYSFS_GPIO_UNEXPORT, m_nr);
 }
 
-void GPIO::Update()
+void GPIOPin::Update()
 {
     if (m_inputGPIO)
         m_valueGPIO = read_bool(m_valuePath);
@@ -123,13 +123,13 @@ void GPIO::Update()
     }
 }
 
-std::string GPIO::GetNodeTypeName() const
+std::string GPIOPin::GetNodeTypeName() const
 {
-    return "FileIO.GPIO";
+    return "GPIOPinIO.GPIOPin";
 }
 
 
-void GPIO::FlagForSend()
+void GPIOPin::FlagForSend()
 {
     m_doWrite = true;
 }

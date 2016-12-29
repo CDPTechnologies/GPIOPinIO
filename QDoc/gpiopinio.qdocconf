@@ -1,10 +1,13 @@
-#include(combat.qdocconf)
-include($$CDPBASE/QDoc/cdp-common.qdocconf)
+include($$COMMON_QDOCCONF_FILE)
 
-#Rename this file to {TARGET}.qdocconf
+description = GPIOPinIO documentation
+navigation.homepage = "GPIO - General Purpose I/O"
+buildversion = $$REPO_VERSION
 
-description = fileioserver Documentation
+qhp.projects = gpiopinio
+qhp.gpiopinio.file = gpiopinio.qhp
+qhp.gpiopinio.namespace = gpiopinio
+qhp.gpiopinio.virtualFolder = doc
+qhp.gpiopinio.indexTitle = "GPIO - General Purpose I/O"
 
-qhp.fileioserver.namespace = fileioserver.$$REPO_VERSION
-qhp.fileioserver.virtualFolder = doc
-qhp.fileioserver.indexTitle = fileioserver $$REPO_VERSION
+navigation.landingpage = "GPIO - General Purpose I/O"

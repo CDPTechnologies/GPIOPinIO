@@ -1,55 +1,55 @@
-#include "fileioserver.h"
+#include "GPIOServer.h"
 
 #include <StudioAPI/NodeStream.h>
 
-#include "gpio.h"
+#include "GPIOPin.h"
 
-using namespace FileIO;
+using namespace GPIOPinIO;
 
-FileIOServer::FileIOServer()
+GPIOServer::GPIOServer()
     : m_channelManager(new ServerIO::ChannelManager(this))
     , m_deinitialized(false)
 {
 }
 
-FileIOServer::~FileIOServer()
+GPIOServer::~GPIOServer()
 {
     delete m_channelManager;
 }
 
-void FileIOServer::Create(const char* fullName)
+void GPIOServer::Create(const char* fullName)
 {
-    CDPComponent:: Create(fullName);
+    CDPComponent::Create(fullName);
 }
 
-void FileIOServer::CreateModel()
+void GPIOServer::CreateModel()
 {
     CDPComponent::CreateModel();
 }
 
-void FileIOServer::Configure(const char* componentXML)
+void GPIOServer::Configure(const char* componentXML)
 {
     CDPComponent::Configure(componentXML);
 }
 
-std::string FileIOServer::GetNodeTypeName() const
+std::string GPIOServer::GetNodeTypeName() const
 {
-    return "FileIOServer";
+    return "GPIOPinIO.GPIOServer";
 }
 
-void FileIOServer::FillNodeChildren(CDP::StudioAPI::NodeStream &serializer) const
+void GPIOServer::FillNodeChildren(CDP::StudioAPI::NodeStream &serializer) const
 {
     IOServer::FillNodeChildren(serializer);
     auto list = m_channelManager->GetChannelList();
     serializer.StdContainerStreamer(list);
 }
 
-bool FileIOServer::IsCommProblem()
+bool GPIOServer::IsCommProblem()
 {
     return false;
 }
 
-void FileIOServer::Activate()
+void GPIOServer::Activate()
 {
   if (m_deinitialized)
     for (auto gpio : m_gpios)
@@ -60,7 +60,7 @@ void FileIOServer::Activate()
   IOServer::Activate();
 }
 
-void FileIOServer::Suspend()
+void GPIOServer::Suspend()
 {
     Stop();
     IOServer::Suspend();
@@ -71,7 +71,7 @@ void FileIOServer::Suspend()
     m_deinitialized = true;
 }
 
-void FileIOServer::Main()
+void GPIOServer::Main()
 {
     while (!Stopped())
     {
@@ -83,12 +83,12 @@ void FileIOServer::Main()
     }
 }
 
-bool FileIOServer::HandleXMLElement(XMLElementEx *pEx)
+bool GPIOServer::HandleXMLElement(XMLElementEx *pEx)
 {
-    std::string strGPIO = "GPIO";
+    std::string strGPIO = "GPIOPin";
     const XMLString& currentElement = pEx->GetName();
 
-    if(currentElement == "GPIOs") // this is just wrapper element for GPIO elements
+    if(currentElement == "GPIOPins") // this is just wrapper element for GPIOPin elements
         return false; //Call handleElement for childern also
 
     if(currentElement == strGPIO.c_str())
@@ -96,7 +96,7 @@ bool FileIOServer::HandleXMLElement(XMLElementEx *pEx)
         bool cdpInput = pEx->GetAttributeValue("Input");
         short number = pEx->GetAttributeValue("Nr");
         std::string name = pEx->GetAttributeValue("Name");
-        GPIO* channel = new GPIO(number, !cdpInput);
+        GPIOPin* channel = new GPIOPin(number, !cdpInput);
         if (channel->Initialize())
         {
             channel->Create(name.c_str(), this);

@@ -1,5 +1,5 @@
-#ifndef FILEIOSERVER_H
-#define FILEIOSERVER_H
+#ifndef GPIOPINIO_GPIOSERVER_H
+#define GPIOPINIO_GPIOSERVER_H
 
 #include <IO/IOServer.h>
 #include <IO/ServerIO/ChannelManager.h>
@@ -7,15 +7,14 @@
 #include <CDPParameter/CDPParameter.h>
 #include <CDPAlarm/CDPAlarm.h>
 
-namespace FileIO {
-class GPIO;
-}
+namespace GPIOPinIO {
+class GPIOPin;
 
-class FileIOServer : public IOServer, public OSAPIThread
+class GPIOServer : public IOServer, public OSAPIThread
 {
 public:
-    FileIOServer();
-    ~FileIOServer();
+    GPIOServer();
+    ~GPIOServer();
 
     void Create(const char* fullName) override;
     void CreateModel() override;
@@ -37,9 +36,10 @@ protected:
 
 private:
     ServerIO::ChannelManager* m_channelManager;
-    std::vector<FileIO::GPIO*> m_gpios;
+    std::vector<GPIOPinIO::GPIOPin*> m_gpios;
     bool m_deinitialized;
 };
 
-#endif
+}
 
+#endif

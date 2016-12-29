@@ -1,17 +1,16 @@
-CDPVERSION = 4.0.0
+CDPVERSION = 4.1.0
+TYPE = library
+
 DEPS += \
 
-HEADERS += fileio.h \
-           FileIOServer.h \
-           gpio.h \
-           fileioBuilder.h
+HEADERS += GPIOPinIO.h \
+           GPIOServer.h \
+           GPIOPin.h \
+           GPIOPinIOBuilder.h
 
 SOURCES += \
-           fileioserver.cpp \
-           gpio.cpp \
-           fileioBuilder.cpp
+           GPIOServer.cpp \
+           GPIOPin.cpp \
+           GPIOPinIOBuilder.cpp
 
-DISTFILES += \
-    Models/*
-
-include($$(CDPBASE)/qmakefeatures/cdplibrary.pri)
+load(cdp)

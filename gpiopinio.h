@@ -1,13 +1,18 @@
 /**
-fileio header file. Include this file in the project to use the library.
+GPIOPinIo header file. Include this file in the project to use the library.
 */
-#ifndef FILEIO_H
-#define FILEIO_H
 
-#include "fileioBuilder.h"
+#ifndef GPIOPINIO_GPIOPINIO_H
+#define GPIOPINIO_GPIOPINIO_H
 
-/** Instantiate the fileiobuilder for this object */
-FileIOServerLibBuilder gFileIOServerLibBuilder("fileio", __TIMESTAMP__);
+#include "GPIOPinIOBuilder.h"
 
-#endif // FILEIOSERVERLIB_H
+namespace GPIOPinIO {
+
+/** Instantiate the GPIOPinIOBuilder for this object */
+GPIOPinIOBuilder gGPIOPinIOBuilder("GPIOPinIO", __TIMESTAMP__);
+
+}
+
+#endif
 

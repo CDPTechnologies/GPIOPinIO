@@ -1,8 +1,9 @@
-LIBNAME = fileio
+LIBNAME = GPIOPinIo
 !build_pass: message($$TARGET: Including $$LIBNAME features.)
-BASEDIR = $$clean_path($$PWD/..)
-INCLUDEPATH *= $$BASEDIR/include/$$LIBNAME
-LIBS *= -L$$BASEDIR/lib -l$$LIBNAME$$EXT
+INCLUDEPATH *= $$clean_path($$PWD/../include)
+INCLUDEPATH *= $$clean_path($$PWD/../include/$$LIBNAME)
+LIBS *= -L$$clean_path($$PWD/../lib)
+LIBS += -l$$LIBNAME$$EXT
 
 DEPSFILE = $$PWD/$$lower($$LIBNAME)_dependencies.pri
 exists($$DEPSFILE): include($$DEPSFILE)

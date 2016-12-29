@@ -1,6 +1,6 @@
-<Library Name="fileio">
+<Library Name="GPIOPinIO">
  <Models>
-  <Model Name="FileIO.GPIO"/>
-  <Model Name="FileIOServer"/>
+  <Model Name="GPIOPinIO.GPIOPin"/>
+  <Model Name="GPIOPinIO.GPIOServer"/>
  </Models>
 </Library>

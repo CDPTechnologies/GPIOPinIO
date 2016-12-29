@@ -1,23 +1,25 @@
 /**
-FileIOServerLibBuilder implementation.
+GPIOPinIOBuilder implementation.
 */
-#include "fileioserver.h"
-#include "fileioBuilder.h"
+#include "GPIOServer.h"
+#include "GPIOPinIOBuilder.h"
 
-FileIOServerLibBuilder::FileIOServerLibBuilder(const char* libName, const char* timeStamp)
+using namespace GPIOPinIO;
+
+GPIOPinIOBuilder::GPIOPinIOBuilder(const char* libName, const char* timeStamp)
 : CDPBuilder(libName, timeStamp)
 {
 }
 
-CDPComponent* FileIOServerLibBuilder::CreateNewComponent(const std::string& type)
+CDPComponent* GPIOPinIOBuilder::CreateNewComponent(const std::string& type)
 {
-    if (type=="FileIOServer")
-        return new FileIOServer;
+    if (type=="GPIOPinIO.GPIOServer")
+        return new GPIOServer;
 
     return nullptr;
 }
 
-CDPBaseObject* FileIOServerLibBuilder::CreateNewCDPOperator(const std::string&, const std::string&, const CDPPropertyBase*)
+CDPBaseObject* GPIOPinIOBuilder::CreateNewCDPOperator(const std::string&, const std::string&, const CDPPropertyBase*)
 {
   return nullptr;
 }

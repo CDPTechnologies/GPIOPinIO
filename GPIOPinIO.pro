@@ -10,7 +10,12 @@ HEADERS += GPIOPinIO.h \
 
 SOURCES += \
            GPIOServer.cpp \
-           GPIOPin.cpp \
            GPIOPinIOBuilder.cpp
+
+linux*:SOURCES += \
+    Linux/GPIOPin.cpp
+
+win*:SOURCES += \
+    Win/GPIOPin.cpp
 
 load(cdp)

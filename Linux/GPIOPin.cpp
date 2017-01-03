@@ -2,11 +2,8 @@
 
 #include <fstream>
 #include <string>
-#include <iostream>
 
 #include <IO/ServerIO/DeltaValidatorSendTrigger.h>
-
-#include<fstream>
 
 using namespace GPIOPinIO;
 using namespace CDP::StudioAPI;

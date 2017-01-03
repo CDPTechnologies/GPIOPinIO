@@ -4,20 +4,9 @@
 #include <string>
 #include <iostream>
 
-#include <StudioAPI/CDPVariantValue.h>
-#include <StudioAPI/NodeStream.h>
-#include <IO/ServerIO/IChannel.h>
 #include <IO/ServerIO/DeltaValidatorSendTrigger.h>
 
 #include<fstream>
-#include<ext/stdio_filebuf.h>
-
-typedef std::basic_ofstream<char>::__filebuf_type buffer_t;
-typedef __gnu_cxx::stdio_filebuf<char> io_buffer_t;
-FILE* cfile_impl(buffer_t* const fb)
-{
-    return (static_cast<io_buffer_t* const>(fb))->file(); //type std::__c_file
-}
 
 using namespace GPIOPinIO;
 using namespace CDP::StudioAPI;
@@ -32,16 +21,6 @@ const std::string GPIO_OUT = "out";
 
 namespace {
 
-FILE* cfile(const std::ofstream& ofs)
-{
-    return cfile_impl(ofs.rdbuf());
-}
-
-FILE* cfile(const std::ifstream& ifs)
-{
-    return cfile_impl(ifs.rdbuf());
-}
-
 template <typename T> bool write_value(const std::string& file, T value)
 {
     std::ofstream ofs(file.c_str());
@@ -51,12 +30,6 @@ template <typename T> bool write_value(const std::string& file, T value)
     ofs << value;
     ofs.close();
     return true;
-}
-
-bool writable(const std::string& file)
-{
-    std::ifstream infile(file);
-        return infile.good();
 }
 
 bool read_bool(const std::string& file)

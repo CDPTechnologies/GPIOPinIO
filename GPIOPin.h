@@ -25,6 +25,8 @@ public:
 
     std::string GetNodeTypeName() const override;
     void FlagForSend() override;
+    void SetDebugLevel(int level);
+    int GetDebugLevel() const;
 
 private:
     std::atomic_bool m_doWrite;
@@ -32,6 +34,7 @@ private:
     bool m_inputGPIO;
     unsigned char m_valueGPIO;
     std::string m_valuePath;
+    int m_debugLevel;
 };
 
 }

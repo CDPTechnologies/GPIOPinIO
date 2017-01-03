@@ -55,6 +55,7 @@ GPIOPin::GPIOPin(short nr, bool inputGPIO)
  : m_doWrite(false)
  , m_nr(nr)
  , m_inputGPIO(inputGPIO)
+ , m_debugLevel(DEBUGLEVEL_NORMAL)
 {
     m_valuePath = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_VALUE;
     if (m_inputGPIO)
@@ -70,9 +71,12 @@ bool GPIOPin::Initialize()
 {
     bool ok;
     write_value(SYSFS_GPIO_EXPORT, m_nr);
-    std::cout << "SysFS configure write "<<SYSFS_GPIO_EXPORT<<" "<<m_nr<<std::endl;
     std::string direction = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_DIRECTION;
-    std::cout << "SysFS configure write "<<direction<<" "<< (m_inputGPIO?GPIO_IN:GPIO_OUT) << std::endl;
+    if(m_debugLevel >= DEBUGLEVEL_EXTENDED)
+    {
+        CDPMessage("SysFS configure write to %s: \"%d\"\n", SYSFS_GPIO_EXPORT.c_str(), m_nr);
+        CDPMessage("SysFS configure write to %s: \"%s\"\n", direction.c_str(), (m_inputGPIO?GPIO_IN:GPIO_OUT).c_str());
+    }
     OSAPISleep(200);
     ok = write_value(direction, m_inputGPIO?GPIO_IN:GPIO_OUT);
     OSAPISleep(50);
@@ -105,4 +109,14 @@ std::string GPIOPin::GetNodeTypeName() const
 void GPIOPin::FlagForSend()
 {
     m_doWrite = true;
+}
+
+void GPIOPin::SetDebugLevel(int level)
+{
+    m_debugLevel = level;
+}
+
+int GPIOPin::GetDebugLevel() const
+{
+    return m_debugLevel;
 }

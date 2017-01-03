@@ -97,6 +97,7 @@ bool GPIOServer::HandleXMLElement(XMLElementEx *pEx)
         short number = pEx->GetAttributeValue("Nr");
         std::string name = pEx->GetAttributeValue("Name");
         GPIOPin* channel = new GPIOPin(number, !cdpInput);
+        channel->SetDebugLevel(GetDebugLevel());
         if (channel->Initialize())
         {
             channel->Create(name.c_str(), this);

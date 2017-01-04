@@ -1,4 +1,163 @@
 /*!
   \page gpio.html
+  \contentspage {General Purpose I/O} {Contents}
+
+  \nextpage GPIOPinIO Manual
+
   \title GPIO - General Purpose I/O
+
+  GPIO or general purpose input/output is a generic pin on an integrated circuit
+  or computer board whose behavior (including whether it is an input or output pin)
+  is controllable by the user at run time. (From Wikipedia, the free encyclopedia)
+
+  The GPIOPinIO library provides a convenient way for interacting with the GPIO pins
+  of an integrated circuit.
+  \note Currently only Raspbian Jessie OS is supported.
+
+  \list
+  \li \l {GPIOPinIO Manual}
+  \li \l {GPIOPinIO Example}
+  \endlist
+*/
+
+/*!
+  \page gpiopinio-manual
+  \contentspage {General Purpose I/O} {Contents}
+
+  \previouspage GPIO - General Purpose I/O
+  \nextpage GPIOPinIO Example
+
+  \title GPIOPinIO Manual
+
+  \section1 Introduction
+
+  This manual describes the GPIOPinLib library and explains the purpose
+  and usages of the library models - GPIOServer and GPIOPin.
+
+  \section1 GPIOServer
+
+  The GPIOServer is an I/O server that handles the updating (periodic reading/writing) of
+  the GPIO pins. From the user experience perspective it is a container for all the GPIOPin
+  channels and a place where the user can conveniently configure them. For this purpose the
+  GPIOServer component has a \section specifically for listing all the \l {GPIOPin}{GPIOPins} that
+  have been added to it.
+
+  \section2 Usage
+
+  To set up a GPIOServer for an application simply add it as a subcomponent.
+  To add a GPIOPin to the server navigate into it and add the GPIOPin from the
+  resource tree or by using the \plusbutton in the \configurationeditor.
+
+  \section1 GPIOPin
+
+  The GPIOPin represents a single physical input/output pin of an integrated circuit board.
+
+  \section2 Usage
+
+  When working with GPIOPins
+  the most important properties are the following:
+  \list
+    \li Nr - defines the pin number on the integrated circuit board that you wish to interact with
+    (see the circuit board's documentation to determine the pin number).
+    \li Input - defines whether this pin accepts inputs from CDP or not.
+    \li Routing - defines the signal routing that can be used for controlling the pin (if it is set
+    as an input) or passing the pin's state to CDP.
+  \endlist
+
+  To interact (read/write) with a physical I/O pin the user must:
+
+  \list
+    \li Add a GPIOPin channel to a GPIOServer. See \l {GPIOServer#Usage} {GPIOServer usage}.
+    \li Set the Nr property of the GPIOPin to the pin number of the circuit board.
+    \li If the desire is to control the pin state with CDP, check the Input property checkbox to
+    define that the GPIOPin accepts inputs from CDP. Otherwise leave the Input property unchecked.
+    \li Set the Routing property to point to a desired signal or a property.
+  \endlist
+
+  \warning GPIOPin has a meaningful implementation on Linux only. On Windows
+  it has just a dummy implementation.
+
+  \sa GPIOServer, GPIOPin, {GPIOPinIO Example}
+*/
+
+/*!
+  \page gpiopinio-example
+  \contentspage {General Purpose I/O} {Contents}
+
+  \previouspage GPIOPinIO Manual
+  \nextpage GPIO - General Purpose I/O
+
+  \title GPIOPinIO Example
+
+  \section1 Introduction
+
+  This example demostrates how to create a simple application for reading a single input
+  and controlling a single output of a Raspberry PI 3 Model B.
+
+  \section1 Setting up the hardware
+
+  Before creating the CDP application the physical input and output devices must be set up.
+  For this example a simple pushbutton and an LED will be used. To prepare the hardware connect
+  an LED to the GPIO pin 17 on the Raspberry PI to be our output and connect a pushbutton to
+  the GPIO pin 18 to be out input. Refer to the following image for the GPIO pin layout of the
+  Raspberry PI.
+
+  \image raspberry_gpio_layout.png
+
+  \section1 Creating the control-system in CDP Studio
+
+  Next we need to create a system to control the LED according to the user input from the pushbutton.
+
+  \section2 Setting up the control system
+
+  Follow these steps to create the system:
+  \list
+    \li Create a new CDP Studio system and name it GPIOTest
+    \li Add a GPIOServer to the default application
+    \li Add a GPIOPin to the GPIOServer and rename it to LEDPin
+    \li Add another GPIOPin to the GPIOServer and rename it to ButtonPin
+  \endlist
+
+  After completing these steps the system should look like this:
+
+  \image GPIO_setup_before_configuring.png
+
+  \section2 Configuring the control system
+
+  Next we need to configure the system so that CDP knows which GPIO pin we want to
+  control and which one we want to get input from.
+  We decided to connect the LED to pin 17 and pushbutton to pin 18, so we have to
+  configure our GPIOPins accordingly.
+  \list
+    \li Set LEDPin "Nr" property to 17
+    \li Set ButtonPin "Nr" property to 18
+  \endlist
+
+  This ties our GPIOPins to specific physical pins on the Raspberry PI.
+  Now we need to define whether the pins are input or output pins.
+
+  \list
+    \li Check  the "Input" checkbox of LEDPin
+    \li Leave the "Input" checkbox of ButtonPin unchecked
+  \endlist
+
+  \startnote Remember that the "Input" checkbox should be viewed from the perspective
+  of CDP meaning that if it should accept inputs from CDP then the checkbox should
+  be checked. If it is itself an input to CDP (like a sensor or a pushbutton) and can
+  only be read by CDP then the "Input" checkbox should stay unchecked.
+  \endnote
+
+  Lastly we need to add a routing to the LEDPin so it takes its input from the button
+  Simply set the LEDPins routing to "GPIOTestApp.GPIOServer.ButtonPin".
+
+  The final configuration should look like this:
+
+  \image GPIO_setup_after_configuring.png
+
+  \section1 Testing the system
+
+  The system is ready for testing. Connect the Raspberry PI to the network if it is not
+  already and deploy the system onto it.
+  When the system starts then pushing the button should light up the LED. If it does, then congratulations!
+  This concludes this example.
 */

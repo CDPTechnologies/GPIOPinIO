@@ -21,7 +21,7 @@ namespace {
 template <typename T> bool write_value(const std::string& file, T value)
 {
     std::ofstream ofs(file.c_str());
-    if (ofs < 0)
+    if (!ofs)
         return false;
 
     ofs << value;
@@ -32,7 +32,7 @@ template <typename T> bool write_value(const std::string& file, T value)
 bool read_bool(const std::string& file)
 {
     std::ifstream ofs(file.c_str());
-    if (ofs < 0)
+    if (!ofs)
         return false;
 
     std::string value;

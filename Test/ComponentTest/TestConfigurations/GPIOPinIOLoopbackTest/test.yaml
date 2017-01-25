@@ -1,0 +1,61 @@
+---
+test_name: &test_name GPIOPinIOLoopbackTest
+application_name: &app_name GPIOPinIOLoopbackTest
+skip_test: false
+is_tester: true
+os: linux
+base_dir_value: &base_dir Temp
+pin_nr_value: &pin_nr '1'
+
+replace:
+  - file:  &file1 Application.xml
+    find:  '%ProjectName%'
+    swap:  *app_name
+
+  - file:  *file1
+    find:  127.0.0.1
+    swap:  !!python/object/apply:component_test.ip_address []
+
+  - file:  *file1
+    find:  </Subcomponents>
+    swap:  |
+           <Subcomponent Model="ComponentTestRunner" Name="ComponentTestRunner" src="Components\ComponentTestRunner.xml"></Subcomponent>
+           </Subcomponents>
+
+  - file:  *file1
+    find:  <Alarm Name="InvalidLicense"        Level="Error" Enabled="1"
+    swap:  <Alarm Name="InvalidLicense"        Level="Error" Enabled="0"
+
+  - file:  &runner Components/ComponentTestRunner.xml
+    find:  </Subcomponents>
+    swap:  |
+           <Subcomponent Model="GPIOPinIOLoopbackTest" Name="GPIOPinIOLoopbackTest" src="Components/GPIOPinIOLoopbackTest.xml"></Subcomponent>
+           </Subcomponents>
+
+  - file:  Components/CDP/StudioAPIServer.xml
+    find:  <DefaultPort>7681</DefaultPort>
+    swap:  <DefaultPort>7690</DefaultPort>
+
+  - file:  &file2 TestResults.xml
+    find:  '%ApplicationName%'
+    swap:  *app_name
+
+  - file:  *file2
+    find:  '%TestName%'
+    swap:  *test_name
+
+  - file:  &file3 Components/ReaderGPIOServer.xml
+    find:  basedirplaceholder
+    swap:  *base_dir
+
+  - file:  *file3
+    find:  pinnrplaceholder
+    swap:  *pin_nr
+
+  - file:  &file4 Components/WriterGPIOServer.xml
+    find:  basedirplaceholder
+    swap:  *base_dir
+
+  - file:  *file4
+    find:  pinnrplaceholder
+    swap:  *pin_nr

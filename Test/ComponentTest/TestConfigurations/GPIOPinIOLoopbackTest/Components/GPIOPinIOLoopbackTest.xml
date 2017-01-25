@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Component Name="GPIOPinIOLoopbackTest" Type="GPIOPinIOLoopbackTest" Activate="1">
+  <Signals>
+    <Signal Name='Process Timer' Description='Process run time each s.' DisplayLevel='10' Input='0' Model='CDPSignal&lt;double&gt;' Type='double' Unit='s/s' XMLLocation='Signals/Signal'></Signal>
+    <Signal Name='Process Period' Description='Process interval [s].' DisplayLevel='10' Input='0' Model='CDPSignal&lt;double&gt;' Type='double' Unit='s' XMLLocation='Signals/Signal'></Signal>
+    <Signal Name="ReadSignal" Routing='GPIOPinIOLoopbackTest.ComponentTestRunner.GPIOPinIOLoopbackTest.ReaderGPIOServer.GPIOPin' Input="1" Model="CDPSignal&lt;bool&gt;" Type="bool" XMLLocation='Signals/Signal' ></Signal>
+    <Signal Name="WriteSignal" Input="0" Model="CDPSignal&lt;bool&gt;" Type="bool" XMLLocation='Signals/Signal' ></Signal>
+  </Signals>
+  <Subcomponents>
+    <Subcomponent Model='GPIOPinIO.GPIOServer' Name='ReaderGPIOServer' src='Components/ReaderGPIOServer.xml'></Subcomponent>
+    <Subcomponent Model='GPIOPinIO.GPIOServer' Name='WriterGPIOServer' src='Components/WriterGPIOServer.xml'></Subcomponent>
+  </Subcomponents>
+
+</Component>

@@ -10,3 +10,5 @@ QDoc/html
 config.xml
 .qmake.cache
 *.pro.user*
+Test/*/*/debug/*
+Test/*/*/release/*

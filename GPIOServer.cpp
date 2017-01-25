@@ -20,6 +20,7 @@ GPIOServer::~GPIOServer()
 void GPIOServer::Create(const char* fullName)
 {
     CDPComponent::Create(fullName);
+    BaseDirectory.Create("BaseDirectory",this,CDPPropertyBase::e_Element,(CDPOBJECT_SETPROPERTY_HANDLER)nullptr,(CDPOBJECT_VALIDATEPROPERTY_HANDLER)nullptr);
 }
 
 void GPIOServer::CreateModel()
@@ -98,6 +99,8 @@ bool GPIOServer::HandleXMLElement(XMLElementEx *pEx)
         std::string name = pEx->GetAttributeValue("Name");
         GPIOPin* channel = new GPIOPin(number, !cdpInput);
         channel->SetDebugLevel(GetDebugLevel());
+        if (BaseDirectory != "")
+            channel->setBaseDirectory(BaseDirectory);
         if (channel->Initialize())
         {
             channel->Create(name.c_str(), this);

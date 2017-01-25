@@ -11,4 +11,5 @@
   <Element Name="GPIOPins" Property="0"></Element>
   <Element Name="GPIOPins/GPIOPin" Property="0" Unique="Name" AcceptsModel="GPIOPinIO.GPIOPin"></Element>
 
+  <Element LogEventOnChange="0" Type="string" Name="BaseDirectory" SaveOnChange="0" RouteMethod="RouteEvent"></Element>
 </Model>

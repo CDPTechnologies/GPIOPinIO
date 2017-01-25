@@ -8,9 +8,10 @@
 using namespace GPIOPinIO;
 using namespace CDP::StudioAPI;
 
-const std::string SYSFS_GPIO_EXPORT = "/sys/class/gpio/export";
-const std::string SYSFS_GPIO_UNEXPORT = "/sys/class/gpio/unexport";
-const std::string SYSFS_GPIO = "/sys/class/gpio/gpio";
+const std::string GPIO_BASE_DIR = "/sys/class/gpio";
+const std::string SYSFS_GPIO_EXPORT = "/export";
+const std::string SYSFS_GPIO_UNEXPORT = "/unexport";
+const std::string SYSFS_GPIO = "/gpio";
 const std::string SYSFS_DIRECTION = "/direction";
 const std::string SYSFS_VALUE = "/value";
 const std::string GPIO_IN = "in";
@@ -49,12 +50,13 @@ void write_bool(const std::string& file, bool value)
 }
 
 GPIOPin::GPIOPin(short nr, bool inputGPIO)
- : m_doWrite(false)
- , m_nr(nr)
- , m_inputGPIO(inputGPIO)
- , m_debugLevel(DEBUGLEVEL_NORMAL)
+  : m_doWrite(false)
+  , m_nr(nr)
+  , m_inputGPIO(inputGPIO)
+  , m_debugLevel(DEBUGLEVEL_NORMAL)
+  , m_baseDirectory(GPIO_BASE_DIR)
 {
-    m_valuePath = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_VALUE;
+    composeValuePath();
     if (m_inputGPIO)
         SetDataPointer(&m_valueGPIO);
     RegisterValidator(new ServerIO::DeltaValidatorSendTrigger(this));
@@ -67,11 +69,11 @@ GPIOPin::~GPIOPin()
 bool GPIOPin::Initialize()
 {
     bool ok;
-    write_value(SYSFS_GPIO_EXPORT, m_nr);
-    std::string direction = SYSFS_GPIO + std::to_string(m_nr) + SYSFS_DIRECTION;
+    write_value(m_baseDirectory + SYSFS_GPIO_EXPORT, m_nr);
+    std::string direction = m_baseDirectory + SYSFS_GPIO + std::to_string(m_nr) + SYSFS_DIRECTION;
     if(m_debugLevel >= DEBUGLEVEL_EXTENDED)
     {
-        CDPMessage("SysFS configure write to %s: \"%d\"\n", SYSFS_GPIO_EXPORT.c_str(), m_nr);
+        CDPMessage("SysFS configure write to %s: \"%d\"\n",(m_baseDirectory + SYSFS_GPIO_EXPORT).c_str(), m_nr);
         CDPMessage("SysFS configure write to %s: \"%s\"\n", direction.c_str(), (m_inputGPIO?GPIO_IN:GPIO_OUT).c_str());
     }
     OSAPISleep(200);
@@ -82,7 +84,7 @@ bool GPIOPin::Initialize()
 
 bool GPIOPin::Deinitialize()
 {
-    return write_value(SYSFS_GPIO_UNEXPORT, m_nr);
+    return write_value(m_baseDirectory + SYSFS_GPIO_UNEXPORT, m_nr);
 }
 
 void GPIOPin::Update()
@@ -116,4 +118,20 @@ void GPIOPin::SetDebugLevel(int level)
 int GPIOPin::GetDebugLevel() const
 {
     return m_debugLevel;
+}
+
+std::string GPIOPin::baseDirectory() const
+{
+    return m_baseDirectory;
+}
+
+void GPIOPin::setBaseDirectory(const std::string& baseDirectory)
+{
+    m_baseDirectory = baseDirectory;
+    composeValuePath();
+}
+
+void GPIOPin::composeValuePath()
+{
+    m_valuePath = m_baseDirectory + SYSFS_GPIO + std::to_string(m_nr) + SYSFS_VALUE;
 }

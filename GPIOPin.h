@@ -28,13 +28,19 @@ public:
     void SetDebugLevel(int level);
     int GetDebugLevel() const;
 
+    std::string baseDirectory() const;
+    void setBaseDirectory(const std::string& baseDirectory);
+
 private:
+    void composeValuePath();
+
     std::atomic_bool m_doWrite;
     short m_nr;
     bool m_inputGPIO;
     unsigned char m_valueGPIO;
     std::string m_valuePath;
     int m_debugLevel;
+    std::string m_baseDirectory;
 };
 
 }

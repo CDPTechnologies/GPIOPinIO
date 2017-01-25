@@ -56,3 +56,12 @@ int GPIOPin::GetDebugLevel() const
 {
     return m_debugLevel;
 }
+
+std::string GPIOPin::baseDirectory() const
+{
+    return std::string();
+}
+
+void GPIOPin::setBaseDirectory(const std::string&)
+{
+}

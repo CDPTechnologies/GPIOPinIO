@@ -6,6 +6,7 @@
 #include <Signal/CDPSignal.h>
 #include <CDPParameter/CDPParameter.h>
 #include <CDPAlarm/CDPAlarm.h>
+#include <CDPSystem/Base/CDPProperty.h>
 
 namespace GPIOPinIO {
 class GPIOPin;
@@ -35,6 +36,7 @@ protected:
     using CDPComponent::fs;
 
 private:
+    CDPProperty<std::string> BaseDirectory;
     ServerIO::ChannelManager* m_channelManager;
     std::vector<GPIOPinIO::GPIOPin*> m_gpios;
     bool m_deinitialized;

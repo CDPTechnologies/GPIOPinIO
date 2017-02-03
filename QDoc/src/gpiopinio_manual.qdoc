@@ -1,0 +1,66 @@
+/*!
+  \page gpiopinio-manual
+  \contentspage {General Purpose I/O} {Contents}
+
+  \previouspage GPIO - General Purpose I/O
+  \nextpage GPIOPinIO Example
+
+  \title GPIOPinIO Manual
+
+  \section1 Introduction
+
+  This manual describes the GPIOPinLib library and explains the purpose
+  and usages of the library models - GPIOServer and GPIOPin.
+
+  \section1 GPIOServer
+
+  The GPIOServer is an I/O server that handles the updating (periodic reading/writing) of
+  the GPIO pins. From the user experience perspective it is a container for all the GPIOPin
+  channels and a place where the user can conveniently configure them. For this purpose the
+  GPIOServer component has a \section specifically for listing all the \l {GPIOPin}{GPIOPins} that
+  have been added to it.
+
+  \section2 Usage
+
+  To set up a GPIOServer for an application simply add it as a subcomponent.
+  To add a GPIOPin to the server navigate into it and add the GPIOPin from the
+  resource tree or by using the \plusbutton in the \configurationeditor.
+
+  \section1 GPIOPin
+
+  The GPIOPin represents a single physical input/output pin of an integrated circuit board.
+
+  \section2 Usage
+
+  When working with GPIOPins
+  the most important properties are the following:
+  \table
+  \header
+    \li Property
+    \li Description
+  \row
+    \li Nr
+    \li defines the GPIO number on the integrated circuit board that you wish to interact with (see the circuit board's documentation to determine the pin number).
+  \row
+    \li Input
+    \li defines whether this pin accepts inputs from CDP or not.
+  \row
+    \li Routing
+    \li defines the signal routing that can be used for controlling the pin (if it is set as an input) or passing the pin's state to CDP.
+  \endtable
+
+  To interact (read/write) with a physical I/O pin the user must:
+
+  \list
+    \li Add a GPIOPin channel to a GPIOServer. See \l {GPIOServer#Usage} {GPIOServer usage}.
+    \li Set the Nr property of the GPIOPin to the pin number of the circuit board.
+    \li If the desire is to control the pin state with CDP, check the Input property checkbox to
+    define that the GPIOPin accepts inputs from CDP. Otherwise leave the Input property unchecked.
+    \li Set the Routing property to point to a desired signal or another IOServer channel.
+  \endlist
+
+  \warning GPIOPin has a meaningful implementation on Linux only. On Windows
+  it has just a dummy implementation.
+
+  \sa GPIOServer, GPIOPin, {GPIOPinIO Example}
+*/

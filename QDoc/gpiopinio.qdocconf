@@ -11,3 +11,8 @@ qhp.gpiopinio.virtualFolder = doc
 qhp.gpiopinio.indexTitle = "GPIO - General Purpose I/O"
 
 navigation.landingpage = "GPIO - General Purpose I/O"
+
+qhp.gpiopinio.subprojects = manual
+qhp.gpiopinio.subprojects.manual.title = GPIO - General Purpose I/O
+qhp.gpiopinio.subprojects.manual.indexTitle = GPIO - General Purpose I/O
+qhp.gpiopinio.subprojects.manual.type = manual

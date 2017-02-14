@@ -1,5 +1,5 @@
-CDPVERSION = 4.1.0
 TYPE = library
+PROJECTNAME = GPIOPinIO
 
 DEPS += \
 

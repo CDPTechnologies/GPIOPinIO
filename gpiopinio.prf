@@ -1,4 +1,4 @@
-LIBNAME = gpiopinio
+LIBNAME = GPIOPinIO
 !build_pass: message($$TARGET: Including $$LIBNAME features.)
 INCLUDEPATH *= $$clean_path($$PWD/../include)
 INCLUDEPATH *= $$clean_path($$PWD/../include/$$LIBNAME)
